@@ -1,0 +1,14 @@
+Part 1:
+
+  Q2: since we miss each cache access see (Q1), we have a total of (number of elements)*(number of itterations)=256*10=2560 cache misses.
+  
+  Q3: Since we now effecticely double the size of the cache we will be able to store all of the elements in it. This means that at the
+  last nine iteration throught the matrix, (since of our "bad loop ordering") we will ONLY have cache hits in the last nine iterations through the matrix. 
+  
+  Additionally since we load two words in each blocks, we will get misses the first column and store all those elements and the following one in memory,
+  but at the second column we will have stored all of the elements in the cache by virtue of the previus columns cache save, this pattern repeats for the third and fourth column.
+  So two columns of hits and two of misses. 
+  Total miss is (number of rows)(2) = 64 * 2 = 128
+  
+
+  
