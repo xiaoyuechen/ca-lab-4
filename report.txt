@@ -28,3 +28,14 @@ Part 1:
   The second opportunity to get hits from data locality is after the first iteration through the matrix, 
   but ONLY IF the cache can store the whole matrix. Meaning we need at least 
   a cache size of (size of element)(nr of elements) = 4 * 256 = 1024 bytes
+
+  Q6: Block size of 16 bytes gives the best hit rate 98%. Since we have a cache
+  with total size of 1024 bytes, we never evict any elements from the cache.
+  Therefore, the more data we could fetch to the cache each time, the better hit
+  rate we would have. 16 bytes block would fetch 4 elements at a time. It is the
+  best for the hit rate.
+
+  Q7: Since the cache size is big enough for all the elements, we won't have
+  cache misses after the first iteration. During the first iteration, we would
+  miss 64 times. Total memory access count of the program is 64 * 4 * 10. 
+  So the hit rate is 1 - (64/(64*4*10)) = 97.5%.
