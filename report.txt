@@ -61,3 +61,7 @@ Part 2:
   Q5: We only miss during the 1st of the 10 iterations. During the 1st
   iteration, we miss 50% of the time. So overall we miss 0.5 * 1 / 10 = 5%. 
   Hence hit rate 95%.
+
+  Q7: No. We need to load data at least once from the memory to cache. This
+  load is unavoidable no matter what cache scheme we use. With the best cache
+  scheme, we could approach to 100% hit rate but we could never reach it.
