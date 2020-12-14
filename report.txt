@@ -6,15 +6,15 @@ Part 1:
   been kicked out from the cache by other elements because we only have 512 bytes
   in cache in total, which is only enough for 126 elements.
 
-  Q2: since we miss each cache access see (Q1), we have a total of (number of elements)*(number of itterations)=256*10=2560 cache misses.
+  Q2: since we miss each cache access see (Q1), we have a total of (number of elements)*(number of itterations)=256*10=2560 cache misses. 
+  Compulsory misses are misses that can't be avoided by a larger cache or from larger associativity sets. 
+  Since the block size is the same as the element size, and we at least will get each element into the cache.
+  We get a total of one compulsory miss for each element = 256
   
-  Q3: Since we now effecticely double the size of the cache we will be able to store all of the elements in it. This means that at the
-  last nine iteration throught the matrix, (since of our "bad loop ordering") we will ONLY have cache hits in the last nine iterations through the matrix. 
-  
-  Additionally since we load two words in each blocks, we will get misses the first column and store all those elements and the following one in memory,
-  but at the second column we will have stored all of the elements in the cache by virtue of the previus columns cache save, this pattern repeats for the third and fourth column.
-  So two columns of hits and two of misses. 
-  Total miss is (number of rows)(2) = 64 * 2 = 128
+  Q3: 
+  Compulsory misses: Here we store two elements in each block and so we only
+  "need" (nr of elements) / (elements per block) = (256)/(2) = 128 cache accesses
+  to have accessed all of the data at least once. So we will have 128 compulsory misses.
   
   Q4: The hit rate does not change. We take the last bit of memory address
   to decide which set of cache the word should go to. When we access the same
@@ -61,7 +61,17 @@ Part 2:
   Q5: We only miss during the 1st of the 10 iterations. During the 1st
   iteration, we miss 50% of the time. So overall we miss 0.5 * 1 / 10 = 5%. 
   Hence hit rate 95%.
-
-  Q7: No. We need to load data at least once from the memory to cache. This
-  load is unavoidable no matter what cache scheme we use. With the best cache
-  scheme, we could approach to 100% hit rate but we could never reach it.
+  
+  Q6: We will miss during the first iteration of the matrix every element in the 
+  first column as a whole row "fits" in the block. So a total of (nr of rows) = 
+  = 64 misses. miss rate = 64/2560 = 2.5%  --> 97.5% hit rate
+  
+  
+  Q4: The hit rate is the same at a 90%. Since the block size is the same one can
+  draw the conclussion that these 10% are purely compulsory misses, same as Q3.
+  Why? In 4-way associativity the last two bits determine which set a memory 
+  address is "assigned" to, basicaly modulo_4. Here 1/4 of the array (16 words) 
+  will be assigned into one set, and the same for the other three quarters.
+  This will evenly fill up all four sets, and so no conflict misses will occur.
+  Only the 128 compulsory misses are left.
+  
