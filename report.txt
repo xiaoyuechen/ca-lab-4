@@ -22,3 +22,9 @@ Part 1:
   been kicked out from the cache by the element whose memory address is the memory
   address of the element we are accessing + 8. So the hit rate would still be 0%.
 
+  Q5: Since each block is as large as an element,we only load one element into the 
+  cache for each miss so we don't get any advantage from data locality within a single matrix iteration. 
+  This is true for both cache types.
+  The second opportunity to get hits from data locality is after the first iteration through the matrix, 
+  but ONLY IF the cache can store the whole matrix. Meaning we need at least 
+  a cache size of (size of element)(nr of elements) = 4 * 256 = 1024 bytes
