@@ -49,8 +49,15 @@ Part 2:
   This means that the data stored in cache from the first matrix iteration will have been evicted
   before the program needs it at the second iteration etc. computation: 0 hits/2560 accesses = 0%
   
+  Q2: The hit rate improve to 50%. This is because we pull the element and the
+  element after it into the 8-byte block every time. Therefore 1/2 = 50%.
 
+  Q3: The hit rate improve to 75%. Similar to Q2, we pull 4 element into the
+  cache each time, hence 3/4 = 75% hit rate.
 
+  Q4: We miss all access when pulling during the 1st of the 10 iterations. So
+  9/10 = 90% hit rate.
 
-
-
+  Q5: We only miss during the 1st of the 10 iterations. During the 1st
+  iteration, we miss 50% of the time. So overall we miss 0.5 * 1 / 10 = 5%. 
+  Hence hit rate 95%.
