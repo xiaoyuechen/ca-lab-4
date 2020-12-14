@@ -3,7 +3,7 @@ Part 1:
   Q1: The hit rate is 0%. The cache block size is 4 bytes, so we could only pull
   the current element we are accessing to the cache. When we access the same
   element after we have iterated over all the 255 other elements, it has already
-  been kicked out from the cache by other elements because we only have 512 bytes
+  been evicted from the cache by other elements because we only have 512 bytes
   in cache in total, which is only enough for 126 elements.
 
   Q2: since we miss each cache access see (Q1), we have a total of (number of elements)*(number of itterations)=256*10=2560 cache misses. 
@@ -19,7 +19,7 @@ Part 1:
   Q4: The hit rate does not change. We take the last bit of memory address
   to decide which set of cache the word should go to. When we access the same
   element after we have iterated over all the 255 other elements, it has already
-  been kicked out from the cache by the element whose memory address is the memory
+  been evicted from the cache by the element whose memory address is the memory
   address of the element we are accessing + 8. So the hit rate would still be 0%.
 
   Q5: Since each block is as large as an element,we only load one element into the 
@@ -42,7 +42,7 @@ Part 1:
   
 Part 2:
 
-  Q1: The hitrate does not increse (0%), The fundamental problem is similiar to before.
+  Q1: The hit rate does not increase (0%), The fundamental problem is similar to before.
   The block can only hold one element so we won't get any "data locality benefits" from 
   within the loop. Furthermore the size of the matrix is larger than the size of the cache,
   or in other words, there are more elements in the matrix than there are blocks in the cache. 
@@ -66,7 +66,36 @@ Part 2:
   first column as a whole row "fits" in the block. So a total of (nr of rows) = 
   = 64 misses. miss rate = 64/2560 = 2.5%  --> 97.5% hit rate
   
-  
+  Q7: No. We need to load data at least once from the memory to cache. This
+  load is unavoidable no matter what cache scheme we use. With the best cache
+  scheme, we could approach to 100% hit rate but we could never reach it.
+
+Bonus:
+
+  Q1: The hit rate is 0%. This is because array A and B conflict with each other
+  on their index bits. Loading an element in B would evict the cached element
+  in A with the same index. This is because we have 128 blocks in cache which
+  requires 7 bits for the index. If we take the last 7 bits of memory addresses
+  as indices, when 2 memory addresses are 128 words apart, they would conflict
+  with each other and result in eviction of the first element. It is exactly
+  what happens in this case since array A and B are 128 words apart. So every
+  load on B's element would cause a conflict miss. Therefore, the hit rate is
+  0%.
+
+  Q2: Changing the block size does not change the hit rate. It remains 0%. The
+  reason is that conflict miss still happens on each memory access. Element in
+  B will still evict element in A every time.
+
+  Q3: We do not have any conflict misses in this case. With 2-way set
+  associative, we use the last bit of memory address to decide which set the
+  element belongs to. As there are 64 elements in A and B with last memory
+  address bit 0 and other 64 elements with last memory address bit 1, no
+  eviction would happen. All 128 elements fit in the cache perfectly.
+
+  Therefore, We only have compulsory misses. The numbers of compulsory misses
+  are 128. So we have overall miss rate 128/(10*128) = 10%. Hence hit rate
+  is 90%.
+    
   Q4: The hit rate is the same at a 90%. Since the block size is the same one can
   draw the conclussion that these 10% are purely compulsory misses, same as Q3.
   Why? In 4-way associativity the last two bits determine which set a memory 
@@ -74,4 +103,7 @@ Part 2:
   will be assigned into one set, and the same for the other three quarters.
   This will evenly fill up all four sets, and so no conflict misses will occur.
   Only the 128 compulsory misses are left.
-  
+
+  Q5: Increasing the associativity of a cache would decrease the conflict
+  misses, hence increasing the overall hit rate. However, it would also result
+  in increased financial and power cost of the cache. 
