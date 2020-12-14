@@ -23,7 +23,7 @@ Part 1:
   address of the element we are accessing + 8. So the hit rate would still be 0%.
 
   Q5: Since each block is as large as an element,we only load one element into the 
-  cache for each miss so we don't get any advantage from data locality within a single matrix iteration. 
+  cache for each miss so we don't g5et any advantage from data locality within a single matrix iteration. 
   This is true for both cache types.
   The second opportunity to get hits from data locality is after the first iteration through the matrix, 
   but ONLY IF the cache can store the whole matrix. Meaning we need at least 
@@ -39,3 +39,18 @@ Part 1:
   cache misses after the first iteration. During the first iteration, we would
   miss 64 times. Total memory access count of the program is 64 * 4 * 10. 
   So the hit rate is 1 - (64/(64*4*10)) = 97.5%.
+  
+Part 2:
+
+  Q1: The hitrate does not increse (0%), The fundamental problem is similiar to before.
+  The block can only hold one element so we won't get any "data locality benefits" from 
+  within the loop. Furthermore the size of the matrix is larger than the size of the cache,
+  or in other words, there are more elements in the matrix than there are blocks in the cache. 
+  This means that the data stored in cache from the first matrix iteration will have been evicted
+  before the program needs it at the second iteration etc. computation: 0 hits/2560 accesses = 0%
+  
+
+
+
+
+
