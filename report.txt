@@ -1,5 +1,11 @@
 Part 1:
 
+  Q1: The hit rate is 0%. The cache block size is 4 bytes, so we could only pull
+  the current element we are accessing to the cache. When we access the same
+  element after we have iterated over all the 255 other elements, it has already
+  been kicked out from the cache by other elements because we only have 512 bytes
+  in cache in total, which is only enough for 126 elements.
+
   Q2: since we miss each cache access see (Q1), we have a total of (number of elements)*(number of itterations)=256*10=2560 cache misses.
   
   Q3: Since we now effecticely double the size of the cache we will be able to store all of the elements in it. This means that at the
@@ -10,5 +16,9 @@ Part 1:
   So two columns of hits and two of misses. 
   Total miss is (number of rows)(2) = 64 * 2 = 128
   
+  Q4: The hit rate does not change. We take the last bit of memory address
+  to decide which set of cache the word should go to. When we access the same
+  element after we have iterated over all the 255 other elements, it has already
+  been kicked out from the cache by the element whose memory address is the memory
+  address of the element we are accessing + 8. So the hit rate would still be 0%.
 
-  
